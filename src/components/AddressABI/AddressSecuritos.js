@@ -1,0 +1,1 @@
+export const AddressSecuritos = "0x478bf3f120f6EDD3970941D4632897918212F5d9"
