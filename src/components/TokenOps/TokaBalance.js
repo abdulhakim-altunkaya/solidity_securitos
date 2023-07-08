@@ -3,12 +3,12 @@ import { useAccount } from '../../Store';
 
 function TokaBalance() { 
 
-  const contractToken = useAccount(state => state.contractToken2);
+  const contractSecuritos = useAccount( state => state.contractSecuritos2);
 
   let [balance, setBalance] = useState("");
 
   const getBalance = async () => {
-      let userBalance = await contractToken.getYourBalance();
+      let userBalance = await contractSecuritos.getYourTokenBalance();
       let userBalance2 = userBalance.toString();
       setBalance(userBalance2);
   }

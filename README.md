@@ -5,3 +5,4 @@ Logo and Icon by <a href="https://www.logoai.com/">LogoAI</a>
 
 # Project Developer: Abdulhakim Altunkaya, July 2023
 
+Update contract addressses on ConnectMet component when you do an update to the contract

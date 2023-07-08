@@ -1,1 +1,1 @@
-export const AddressSecuritos = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+export const AddressSecuritos = "0xDC365F1AC78b165D6eD9BDb9dc0E2697d2C34158"

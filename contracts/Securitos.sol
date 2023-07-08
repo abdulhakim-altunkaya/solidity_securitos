@@ -34,14 +34,14 @@ contract Securitos is ERC20Capped {
 
     //2.TOKEN OPERATIONS
     bool public freeMinting = true;
-    uint freeMintingAmount = 10;
+    uint freeMintingAmount = 5;
     function toggleFreeMinting(uint _amount) external onlyOwner {
         freeMinting = !freeMinting;
         freeMintingAmount = _amount;
     }
     //people will mint token for free for a certain time.
     function freeMint() external {
-        require(freeMinting == true, "free minting disabled");
+        require(freeMinting == true, "free minting disabled"); 
         require(msg.sender == tx.origin, "contracts cannot mint");
         require(msg.sender != address(0), "real addresses can mint");
         _mint(msg.sender, freeMintingAmount*(10**18));
@@ -53,13 +53,19 @@ contract Securitos is ERC20Capped {
         emit TokenBurned(msg.sender, _amount);
     }
 
-    //owner can withdraw excess tokens ("profit") to his metamask account.
+    //owner can withdraw tokens ("profit") to his metamask account.
     function withdrawToken(uint _amount) external onlyOwner {
         require(balanceOf(address(this)) > 0, "contract doesn't have CONTOR");
         require(msg.sender == tx.origin, "contracts cannot withdraw");
         require(msg.sender != address(0), "real addresses can withdraw");
         _transfer(address(this), msg.sender, _amount*(10**18));
         emit TokenTransferred(msg.sender, _amount);
+    }
+    //owner can withdraw FTM to his metamask account.
+    function withdrawEther() external onlyOwner {
+        require(address(this).balance > 1, "contract balance is zero");
+        (bool success, ) = owner.call{value: address(this).balance}("");
+        require(success, "ether withdrawal failed");
     }
 
     //Contract must have enough tokens. So that people can come and buy tokens for auditing service. 
@@ -71,7 +77,7 @@ contract Securitos is ERC20Capped {
     }
 
     //view functions
-    function getTotalSupply() external view returns(uint) {
+    function getTotalSupply() external view returns(uint) { 
         return totalSupply() / (10**18);
     }
     function getContractAddress() external view returns(address) {
@@ -121,11 +127,16 @@ contract Securitos is ERC20Capped {
         _transfer(address(this), msg.sender, 12*(10**18));
         emit TokenTransferred(msg.sender, 12);
     }
+    uint public exchangeValue = 1 ether;
+    function setExchange(uint _newExchange) external onlyOwner {
+        exchangeValue = _newExchange * (10**18);
+    }
 
 /*
 add fallback and receive with events
 if needed add a revert to the fallback
 add separate contract for contror staking
-add separate contract for contor initial offering */
+add separate contract for contor initial offering
+owner function to change exchange amount, default is 1 ftm 12 sintos*/
 
 }

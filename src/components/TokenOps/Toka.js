@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import TokaMint from "./TokaMint";
 import TokaBurn from "./TokaBurn";
 import TokaBalance from "./TokaBalance";
+import TokaBuy from "./TokaBuy";
 
 function Toka() {
 
@@ -13,11 +14,12 @@ function Toka() {
 
   return (
     <div>
-      <button onClick={displayTokaOps} className='button9'>Sitos Token Operations</button>
+      <button onClick={displayTokaOps} className='button9'>Sintos Token Operations</button>
       {
         displayStatus ? 
         <>
           <TokaMint />
+          <TokaBuy />
           <TokaBurn />
           <TokaBalance />
         </>

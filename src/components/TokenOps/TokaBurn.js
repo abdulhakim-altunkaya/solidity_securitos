@@ -3,7 +3,7 @@ import { useAccount } from '../../Store';
 
 function TokaBurn() {
 
-  const contractToken = useAccount( state => state.contractToken2);
+  const contractSecuritos = useAccount( state => state.contractSecuritos2);
 
   let [amount, setAmount] = useState("");
   let [message, setMessage] = useState("");
@@ -29,11 +29,11 @@ function TokaBurn() {
     }
 
     //security check 3: check user balance
-    let userBalance = await contractToken.getYourBalance();
+    let userBalance = await contractSecuritos.getYourTokenBalance();
     let userBalance2 = userBalance.toString();
     let userBalance3 = parseInt(userBalance2);
     if(userBalance3 < 1) {
-      alert("You dont have enough SITOS. How do you think you burn something that you dont have? (Security Check 4)");
+      alert("You dont have enough SINTOS. How do you think you burn something that you dont have? (Security Check 4)");
       return;
     }
     if(userBalance3 < amount1) {
@@ -42,8 +42,8 @@ function TokaBurn() {
     }
 
     //execution
-    await contractToken.burnToken(amount1);
-    setMessage(`Success, you burned ${amount1} SITOS`)
+    await contractSecuritos.burnToken(amount1);
+    setMessage(`Success, you burned ${amount1} SINTOS`)
   }
 
   return (

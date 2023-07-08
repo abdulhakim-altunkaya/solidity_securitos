@@ -7,7 +7,6 @@ function LowToken() {
     <div className='mainTokenDiv'>
       <TokenRead />
       <TokenWrite />
-      wefwefwe
     </div>
   )
 }
