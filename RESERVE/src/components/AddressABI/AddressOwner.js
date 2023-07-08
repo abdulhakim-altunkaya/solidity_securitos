@@ -1,1 +1,0 @@
-export const AddressOwner = "0x50b716662ca9717BA5DD7B20b5b722Cf15B0821B"

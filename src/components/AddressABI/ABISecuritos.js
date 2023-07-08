@@ -317,6 +317,19 @@ export const ABISecuritos = [
   },
   {
     "inputs": [],
+    "name": "exchangeValue",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "fee",
     "outputs": [
       {
@@ -509,6 +522,19 @@ export const ABISecuritos = [
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_newExchange",
+        "type": "uint256"
+      }
+    ],
+    "name": "setExchange",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

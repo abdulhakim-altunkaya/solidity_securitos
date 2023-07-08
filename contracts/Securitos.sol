@@ -108,6 +108,7 @@ contract Securitos is ERC20Capped {
         fee = _fee;
     }
     
+    //When person wants to submit his contract, he needs to pay 1 SINTOS to the contract.
     function makePayment() external returns(bool) {
         require(balanceOf(msg.sender) >= fee, "you don't have enough token");
         require(msg.sender == tx.origin, "contracts cannot pay");
@@ -116,6 +117,8 @@ contract Securitos is ERC20Capped {
         emit TokenDeposited(msg.sender, fee);
         return true;
     }
+
+
     //Currently the pool of SINTOS/FTM is not based on orderbook model.
     //For that reason there is fixed price which is 12 Sintos for 1 FTM
     function buyToken() external payable {

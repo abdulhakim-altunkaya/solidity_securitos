@@ -1,5 +1,6 @@
 import React from 'react';
 import ConnectMet from './ConnectMet';
+import GetBalances from './GetBalances';
 
 function TokenRead() {
   return (
@@ -9,7 +10,9 @@ function TokenRead() {
         2. Make sure you are on Fantom Testnet <br />
         3. Make sure you have Fantom Testnet tokens.
       </p>
-      < ConnectMet />
+      <ConnectMet />
+      <br />
+      <GetBalances />
     </div>
   )
 }

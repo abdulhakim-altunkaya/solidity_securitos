@@ -9,6 +9,12 @@ function TokaMint() {
 
   const mintToken = async () => {
 
+    let mintStatus = await contractSecuritos.freeMinting();
+    if(mintStatus === false) {
+      alert("Free minting disabled by owner");
+      return;
+    }
+
     //security check 1: if you have 50+ token, you cannot mint more for free
     let userBalance = await contractSecuritos.getYourTokenBalance(); 
     let userBalance2 = userBalance.toString();

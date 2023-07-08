@@ -1,11 +1,11 @@
 import React from 'react';
-
+import AuditForm from "./AuditOps/AuditForm";
 
 function LowPlatform() {
   return (
     <div>
 
-      Hello
+      <AuditForm />
     </div>
   )
 }

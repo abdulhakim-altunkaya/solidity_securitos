@@ -39,7 +39,7 @@ function OwnerToggle() {
     }
 
     await contractSecuritos.toggleFreeMinting(amount1);
-    setMessage("You successfully changed free minting amount. However, free minting is paused now. To unpause it click on this button again with same amount");
+    setMessage("Free Mint amount and status changed");
   }
 
   return (
