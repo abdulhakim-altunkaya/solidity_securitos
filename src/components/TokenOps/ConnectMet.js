@@ -1,14 +1,38 @@
 import React, {useState} from 'react';
+import { ethers } from "ethers";
 
 function ConnectMet() {
 
     const {ethereum} = window;
 
     let [displayStatus, setDisplayStatus] = useState(false);
-    let [account, setAccount] = useState("");
+    let [account, setAccount] = useState("");      
 
     const connectMetamask = async () => {
         if(window.ethereum !== "undefined") {
+
+            //1.CHANGE NETWORK PART WILL BE EXECUTED IF USER IS ON DIFFERENT NETWORK
+            // Create an ethers.js provider using MetaMask's provider
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            try {
+                // Request access to the user's accounts
+                await window.ethereum.enable();
+                // Get the network ID
+                const network = await provider.getNetwork();
+                const networkId = network.chainId;
+                // Check if the user is on the Fantom Testnet
+                if (networkId !== '0xfa2') {
+                  // Prompt the user to switch to the Fantom Testnet
+                  await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0xfa2' }],
+                  });
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                return;
+            }
+            //2.METAMASK CONNECTION PART
             const accounts = await ethereum.request({ method: "eth_requestAccounts"});
             setAccount(accounts[0]);
             setDisplayStatus(!displayStatus);
@@ -17,7 +41,6 @@ function ConnectMet() {
             return;
         }
     }
-
 
     return (
 

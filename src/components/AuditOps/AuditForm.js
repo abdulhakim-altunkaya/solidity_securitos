@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { Configuration, OpenAIApi } from "openai";
 import { useAccount } from "../../Store.js";
+import { ethers } from "ethers";
 
 function AuditForm() {
+
+    const {ethereum} = window;
 
     const contractSecuritos = useAccount( state => state.contractSecuritos2);
 
@@ -15,7 +18,55 @@ function AuditForm() {
     const configuration = new Configuration({apiKey: api});
     const openai = new OpenAIApi(configuration);
 
-
+    const connectMetamask = async () => {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          // Create an ethers.js provider using MetaMask's provider
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          
+          // Request access to the user's accounts
+          await window.ethereum.enable();
+          
+          // Get the initial network ID
+          const initialNetwork = await provider.getNetwork();
+          const initialNetworkId = initialNetwork.chainId;
+          
+          // Check if the user is on the Fantom Testnet
+          if (initialNetworkId !== '0xfa2') {
+            // Prompt the user to switch to the Fantom Testnet
+            await window.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: '0xfa2' }],
+            });
+            
+            // Wait for network change confirmation
+            await new Promise((resolve, reject) => {
+              const networkChangedHandler = () => {
+                resolve();
+                window.ethereum.removeListener('chainChanged', networkChangedHandler);
+              };
+              window.ethereum.on('chainChanged', networkChangedHandler);
+            });
+            
+            // Recreate the ethers.js provider after switching
+            const updatedProvider = new ethers.providers.Web3Provider(window.ethereum);
+            
+            // Get the updated network ID
+            const updatedNetwork = await updatedProvider.getNetwork();
+            const updatedNetworkId = updatedNetwork.chainId;
+            console.log(updatedNetworkId);
+          } 
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      } else {
+        alert('You need to install MetaMask');
+        return;
+      }
+    };
+    connectMetamask();
+    
+    
 
   const handleSubmit = async (e) => {
 
