@@ -22,7 +22,7 @@ function AuditForm() {
     e.preventDefault();
 
     if(contractCode.length < 100) {
-      alert("contract code is not long enough (Security Check 2)");
+      alert("function code is not long enough (Security Check 2)");
       return;
     }
 
@@ -45,15 +45,16 @@ function AuditForm() {
       setManual("block");
       return;
     }
-    const formInput = `Imagine you are smart contract auditor. Take a look at the contract that I will be sharing below.
-        Then try to see loopholes inside the contract. What are the weak points that hackers can exploit? Also,
-        if you detect some vulnerabilities of the contract, mention them and provide solutions and suggestions.
+    const formInput = `Imagine you are smart contract auditor. Take a look at the function that I will be sharing below.
+        Then try to see loopholes inside the function. What are the weak points that hackers can exploit? Also,
+        if you detect some vulnerabilities of the function, mention them and provide solutions and suggestions.
         Tell us which lines of code should we check, what are the vulnerabilities. However,
         if you do not see any vulnerability, you can praise. For example, you can say "it is good that you put 
         require statement here....". Write 8 to 12 sentences in total. Half of them should be about the vulnerabilities.
-        And the other half should be praising the contract code. Do not use repetitive sentences. If the contract is too long,
-        you can say as an answer that it is too long and request to make it shorter.
-        Here is contract: ${contractCode}`;
+        And the other half should be praising the function code. Do not use repetitive sentences. If the function is too long,
+        you can ask them to maake it shorter. Also if the function is not written in Solidity, you can ask them to submit a Solidity
+        function. If the submission is not a function, you can ask them to submit a function.
+        Here is function: ${contractCode}`;
     const response = await openai.createCompletion({
       prompt: formInput,
       model: "text-davinci-003",
@@ -73,8 +74,8 @@ function AuditForm() {
 
     <div className='smallFormDiv'>
 
-      <h2>SUBMIT YOUR CONTRACT</h2>
-      <p>Before submitting the contract, please make sure you upload only one contract at a time. Do not upload multiple contracts.
+      <h2>SUBMIT YOUR FUNCTION</h2>
+      <p>Upload only one function at a time. Do not upload multiple functions.
       </p>
     
       <form onSubmit={handleSubmit} className='contractSubmitForm'>
@@ -88,12 +89,12 @@ function AuditForm() {
       </form>
       <p>{responseChatgpt}</p>
       <div style={{display: `${manual}`}}>
-      <strong>To audit contract:</strong> <br />
+      <strong>To audit a function:</strong> <br />
       <strong>1.</strong> Make sure you have Metamask in your browser and you are on Fantom Testnet <br />
       <strong>2.</strong> Connect this site to your Metamask. <br />
       <strong>3.</strong> Audit fee is 1 SINTOS token. <br />
       <strong>3.</strong> If you do not have 1 SINTOS token, go to "Token Operations" of website and buy or mint some tokens.<br />
-      <strong>4.</strong> Copy paste your contract to form area and click "send". Confirm Metamask transaction and wait 25 seconds.
+      <strong>4.</strong> Copy paste your function to the form area and click "send". Confirm Metamask transaction and wait 25 seconds.
       Answer will appear here.
      </div>
     </div>

@@ -108,7 +108,7 @@ contract Securitos is ERC20Capped {
         fee = _fee;
     }
     
-    //When person wants to submit his contract, he needs to pay 1 SINTOS to the contract.
+    //When person wants to submit his function, he needs to pay 1 SINTOS to the contract.
     function makePayment() external returns(bool) {
         require(balanceOf(msg.sender) >= fee, "you don't have enough token");
         require(msg.sender == tx.origin, "contracts cannot pay");
@@ -138,8 +138,8 @@ contract Securitos is ERC20Capped {
 /*
 add fallback and receive with events
 if needed add a revert to the fallback
-add separate contract for contror staking
-add separate contract for contor initial offering
+add separate contract for staking
+add separate contract for initial offering
 owner function to change exchange amount, default is 1 ftm 12 sintos*/
 
 }
